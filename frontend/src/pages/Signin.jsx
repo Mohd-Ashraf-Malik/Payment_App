@@ -13,18 +13,32 @@ export const Signin = () => {
     const [isAuthenticated,setIsAuthenticated] = useState(false);
     const nevigate = useNavigate();
     useEffect(() => {
-        (async ()=>{
-            const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/user/me",{
-                headers: {
-                    Authorization: localStorage.getItem("Authorization")
-                }
-            })
-            if(data.authenticated){
-                setIsAuthenticated(true);
-                nevigate('/dashboard');
+  const checkAuth = async () => {
+    try {
+        const token = localStorage.getItem("Authorization");
+        if (!token) return;
+
+        const { data } = await axios.get(
+            import.meta.env.VITE_BACKEND_URL + "/api/v1/user/me",
+            {
+            headers: {
+                Authorization: token
             }
-        })();
-    },[])
+            }
+        );
+
+        if (data.authenticated) {
+            setIsAuthenticated(true);
+            nevigate("/dashboard");
+        }
+        } catch (err) {
+            // user not logged in / token invalid
+            console.log("Not authenticated");
+        }
+    };
+
+    checkAuth();
+    }, []);
     return <div className="bg-slate-300 h-screen flex justify-center">
     <div className="flex flex-col justify-center">
       <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
@@ -33,7 +47,7 @@ export const Signin = () => {
         <InputBox placeholder="xyz@gmail.com" label={"Email"} onChange={(e) => {
             setUsername(e.target.value);
         }} />
-        <InputBox placeholder="*******" label={"Password"} onChange={(e) => {
+        <InputBox placeholder="*******" label={"Password"}  onChange={(e) => {
             setPassword(e.target.value);
         }} />
         <div className="pt-4">
@@ -42,14 +56,17 @@ export const Signin = () => {
                 username,
                 password
             });
+            console.log(response);
             if(response.status === 200){
                 localStorage.setItem("Authorization", "Bearer " + response.data.token);
+                setIsAuthenticated(true);
                 nevigate('/dashboard');
             }
-            console.log(response.data.message);
           }} />
         </div>
+        <div className="mt-4">
         <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/signup"} />
+        </div>
       </div>
     </div>
   </div>

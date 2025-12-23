@@ -8,7 +8,9 @@ export const Transactions = () => {
     useEffect(()=>{
     (async () =>{
         const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/account/transactions",{
-            headers: {'Authorization': localStorage.getItem('Authorization')}
+            headers: {
+                'Authorization': localStorage.getItem('Authorization')
+            },
         });
         setTransactions(data.transactions);
     })()}
@@ -19,7 +21,7 @@ export const Transactions = () => {
             <div className="font-bold mt-6 text-lg">
                 Transactions
             </div>
-            <Table tableHeader={['ID','From','To','Amount','Timestamp']} tableRows={transactions}/>
+            <Table tableHeader={['ID','FromName','From','ToName','To','Amount','Timestamp']} tableRows={transactions}/>
         </div>
     </div>
 }

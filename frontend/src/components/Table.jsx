@@ -6,7 +6,13 @@ function TableRows({rowData}){
                             {rowData._id}
                         </th>
                         <td className="px-6 py-4">
+                            {rowData.fromName}
+                        </td>
+                        <td className="px-6 py-4">
                             {rowData.from}
+                        </td>
+                        <td className="px-6 py-4">
+                            {rowData.toName}
                         </td>
                         <td className="px-6 py-4">
                             {rowData.to}
