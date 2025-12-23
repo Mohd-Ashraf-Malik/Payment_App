@@ -10,75 +10,19 @@ mongoose.connection.on('error', (err) => {
 
 mongoose.connect(process.env.DB_URL);
 
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        lowercase: true,
-        minLength: 3,
-        maxLength: 60
-    },
-    password: {
-        type: String,
-        required: true,
-        minLength: 6,
-    },
-    firstName: {
-        type: String,
-        maxLength: 50
-    },
-    lastName: {
-        type: String,
-        maxLength: 50
-    }
-});
-userSchema.methods.createHash = async function(plainText){
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    return await bcrypt.hash(plainText, salt);
-};
-userSchema.methods.validateHash = async function(candidatePasword){
-    return await bcrypt.compare(candidatePasword,this.password);
-}
+const User = require('./model/user.model.js');
+const Account = require('./model/account.model.js');
+const Transaction = require('./model/transaction.model.js'); 
+const Idempotency = require("./model/idempotency.model.js");
+const AuditLog = require("./model/auditlog.model.js");
+const Ledger = require("./model/Ledger.model.js");
 
-const accountSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    balance: {
-        type: Number,
-        required: true
-    }
-});
-
-const transactionSchema = new mongoose.Schema({
-    from: {
-        type: String,
-        required: true
-    },
-    to:{
-        type:String,
-        required: true
-    },
-    amount:{
-        type:Number,
-        required: true
-    },
-    timestamp:{
-        type: Number,
-        required: true
-    }
-});
-const User = new mongoose.model("User",userSchema);
-const Account = new mongoose.model("Account",accountSchema);
-const Transaction = new mongoose.model("Transaction",transactionSchema);
 module.exports = {
-    User,
-    Account,
-    Transaction,
-    mongoose
-}
+  User,
+  Account,
+  Transaction,
+  Ledger,
+  Idempotency,
+  AuditLog,
+  mongoose
+};

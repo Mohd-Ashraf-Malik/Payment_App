@@ -1,8 +1,11 @@
 const { Router } = require('express');
 const { signup,login,updateUser,findUser,isAuthenticated,getUserDetails } = require('../controller/user');
-const {jwtValidate} = require('../middleware');
+const {jwtValidate} = require('../middleware/auth.js');
+const { loginLimiter } = require("../middleware/rateLimiter");
+
 const app = Router();
-app.post('/signin', login);
+
+app.post("/signin", loginLimiter, login);
 
 app.post("/signup", signup);
 

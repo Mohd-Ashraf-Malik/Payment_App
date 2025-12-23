@@ -3,6 +3,7 @@ const {User, Account} = require("../db");
 const jwt = require("jsonwebtoken");
 const {jwtSecret} = require("../config");
 
+
 async function signup(req,res){
     const {success} = signupSchema.safeParse(req.body);
     if(!success) {

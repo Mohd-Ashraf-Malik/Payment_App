@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {jwtSecret} = require('./config');
+const {jwtSecret} = require('../config');
 async function jwtValidate(req, res, next) {
     const bauth = req.headers.authorization;
     if(!bauth || !(bauth.startsWith('Bearer '))){
