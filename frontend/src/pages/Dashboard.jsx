@@ -8,7 +8,7 @@ export const Dashboard = () => {
     const [balance,setBalance] = useState(0);
     useEffect(() => {
     (async () =>{
-        const {data} = await axios(import.meta.env.VITE_BACKEND_URL + "/api/v1/account/balance",{
+        const {data} = await axios(import.meta.env.VITE_BACKEND_URL + "/v1/account/balance",{
             headers: {'Authorization': localStorage.getItem('Authorization')}
         });
         setBalance(data.balance);

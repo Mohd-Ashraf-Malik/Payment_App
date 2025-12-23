@@ -9,7 +9,7 @@ export const Users = () => {
     const [filter,setFilter] = useState("");
     useEffect(()=>{
         (async ()=>{
-            const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/user/bulk?filter=" + filter,{
+            const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/v1/user/bulk?filter=" + filter,{
                 headers: {'Authorization': localStorage.getItem('Authorization')}
             });
             setUsers(data.users);

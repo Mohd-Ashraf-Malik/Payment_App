@@ -1,3 +1,13 @@
-FROM mongo:4.4.7
-RUN echo "rs.initiate();" > /docker-entrypoint-initdb.d/replica-init.js
-CMD [ "--replSet", "rs" ]
+FROM node:18-alpine AS build
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
