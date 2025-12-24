@@ -9,7 +9,7 @@ export const Appbar = () => {
     });
     useEffect(() => {
         (async () => {
-            const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/v1/user/profile",{
+            const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/user/profile",{
                 headers: {
                     Authorization: localStorage.getItem('Authorization')
                 }

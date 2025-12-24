@@ -109,7 +109,7 @@ const initiateTransfer = async (
 ) => {
   try {
     const { status } = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/v1/account/transfer`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/account/transfer`,
       txData,
       {
         headers: {

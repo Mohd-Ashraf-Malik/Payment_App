@@ -17,7 +17,7 @@ export const Signup = () => {
     const nevigate = useNavigate();
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/v1/user/me",{
+            const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/user/me",{
                 headers: {
                     Authorization: localStorage.getItem("Authorization")
                 }

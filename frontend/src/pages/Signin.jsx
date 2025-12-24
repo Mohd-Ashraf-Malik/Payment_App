@@ -19,7 +19,7 @@ export const Signin = () => {
         if (!token) return;
 
         const { data } = await axios.get(
-            import.meta.env.VITE_BACKEND_URL + "/v1/user/me",
+            import.meta.env.VITE_BACKEND_URL + "/api/v1/user/me",
             {
             headers: {
                 Authorization: token
@@ -36,7 +36,7 @@ export const Signin = () => {
             console.log("Not authenticated");
         }
     };
-
+    console.log(import.meta.env.VITE_BACKEND_URL);
     checkAuth();
     }, []);
     return <div className="bg-slate-300 h-screen flex justify-center">

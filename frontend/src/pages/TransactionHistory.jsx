@@ -7,7 +7,7 @@ export const Transactions = () => {
     const [transactions,setTransactions] = useState([]);
     useEffect(()=>{
     (async () =>{
-        const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/v1/account/transactions",{
+        const {data} = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/v1/account/transactions",{
             headers: {
                 'Authorization': localStorage.getItem('Authorization')
             },
