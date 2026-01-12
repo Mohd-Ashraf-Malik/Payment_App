@@ -7,6 +7,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/api/v1",rootRouter);
+app.get("/health",(req,res)=>{
+    res.status(200).send({"status":"ok"});
+});
 app.get("/",(req,res)=>{
     res.send("Server is running");
 });
